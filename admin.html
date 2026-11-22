@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connecto Gym - Admin Panel</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <a href="admin.html" class="logo">Connecto<span>Gym</span> Admin</a>
+    <button class="btn btn-small" id="adminLogoutButton">Log Out</button>
+  </header>
+
+  <main>
+    <div class="dashboard-layout">
+
+      <aside class="side-menu">
+        <div class="profile-box">
+          <div class="avatar">A</div>
+          <div>
+            <h3>Administrator</h3>
+            <p>Gym management</p>
+          </div>
+        </div>
+        <button class="side-link active" data-section="overviewSection">Overview</button>
+        <button class="side-link" data-section="bookingsSection">Who Booked</button>
+        <button class="side-link" data-section="membersSection">Members</button>
+        <button class="side-link" data-section="membershipsSection">Memberships</button>
+        <button class="side-link" data-section="coachesSection">Coaches</button>
+        <button class="side-link" data-section="slotsSection">Session Times</button>
+        <button class="side-link" data-section="plansSection">Plans</button>
+        <button class="side-link" data-section="offersSection">Offers</button>
+        <button class="side-link" data-section="reviewsSection">Reviews</button>
+        <button class="side-link" data-section="messagesSection">Messages</button>
+        <button class="side-link" data-section="paymentsSection">Payments</button>
+        <button class="side-link side-logout" id="sideLogoutButton">Log Out</button>
+      </aside>
+
+      <div class="dashboard-content">
+
+        <section class="dashboard-section" id="overviewSection">
+          <h2>Admin Overview</h2>
+          <div class="stat-grid">
+          <div class="stat-card"><p>Members</p><h3 id="memberCount">0</h3></div>
+          <div class="stat-card"><p>Active memberships</p><h3 id="activeMembershipCount">0</h3></div>
+          <div class="stat-card"><p>Revenue (after refunds)</p><h3 id="revenueTotal">0</h3></div>
+          <div class="stat-card"><p>Refunded</p><h3 id="refundTotal">0</h3></div>
+          <div class="stat-card"><p>Upcoming sessions booked</p><h3 id="upcomingSessionCount">0</h3></div>
+          <div class="stat-card"><p>Coaches</p><h3 id="coachCount">0</h3></div>
+          <div class="stat-card"><p>Plans</p><h3 id="planCount">0</h3></div>
+          <div class="stat-card"><p>New messages</p><h3 id="unreadMessageCount">0</h3></div>
+          </div>
+          <div class="panel">
+            <h3>Next booked sessions</h3>
+            <div class="table-container">
+              <table class="admin-table">
+                <thead><tr><th>Member</th><th>Coach</th><th>Date</th><th>Time</th></tr></thead>
+                <tbody id="overviewBookingsBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="dashboard-section hidden" id="bookingsSection">
+          <h2>Who Booked</h2>
+          <div class="panel">
+            <p>Every booked session time, with the member who booked it.</p>
+            <div class="table-container">
+              <table class="admin-table">
+                <thead><tr><th>Member</th><th>Email</th><th>Coach</th><th>Date</th><th>Time</th><th>When</th><th>Fitness profile</th><th>Notes</th><th>Actions</th></tr></thead>
+                <tbody id="bookingsTableBody"></tbody>
+              </table>
+            </div>
+            <p class="message" id="bookings_message"></p>
+          </div>
+        </section>
+
+        <section class="dashboard-section hidden" id="membersSection">
+          <h2>Members</h2>
+          <div class="panel">
+            <h3 id="members_formTitle">Add a Member</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="members_full_name">Full Name</label>
+                <input type="text" id="members_full_name" placeholder="Member name">
+              </div>
+              <div class="form-group">
+                <label for="members_email">Email Address</label>
+                <input type="email" id="members_email" placeholder="member@example.com">
+              </div>
+              <div class="form-group">
+                <label for="members_password">Password</label>
+                <input type="password" id="members_password" placeholder="At least 6 characters (when editing, leave empty to keep it)">
+              </div>
+            </div>
+            <div class="booking-actions">
+              <button class="btn btn-small" id="members_saveButton">Add Member</button>
+              <button class="btn btn-secondary btn-small hidden" id="members_cancelEditButton">Cancel Edit</button>
+            </div>
+            <p class="message" id="members_message"></p>
+          </div>
+          <div class="panel">
+            <div class="table-container">
+              <table class="admin-table">
+                <thead><tr><th>Name</th><th>Email</th><th>Current plan</th><th>Joined</th><th>Actions</th></tr></thead>
+                <tbody id="membersTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="dashboard-section hidden" id="membershipsSection">
+          <h2>Memberships</h2>
+          <div class="panel">
+            <p>Cancelling a membership refunds the unused days and frees the member's upcoming sessions.</p>
+            <div class="table-container">
+              <table class="admin-table">
+                <thead><tr><th>Member</th><th>Plan</th><th>Coach</th><th>Starts</th><th>Ends</th><th>Status</th><th>Paid</th><th>Refunded</th><th>Actions</th></tr></thead>
+                <tbody id="membershipsTableBody"></tbody>
+              </table>
+            </div>
+            <p class="message" id="memberships_message"></p>
+          </div>
+        </section>
+
+        <section class="dashboard-section hidden" id="coachesSection">
+          <h2>Coaches</h2>
+          <div class="panel">
+            <h3 id="coaches_formTitle">Add a Coach</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="coaches_coach_name">Coach Name</label>
+                <input type="text" id="coaches_coach_name" placeholder="Coach name">
+              </div>
+              <div class="form-group">
+                <label for="coaches_specialization">Specialization</label>
+                <input type="text" id="coaches_specialization" placeholder="For example Yoga">
+              </div>
+              <div class="form-group">
+                <label for="coaches_experience_years">Years of Experience</label>
+                <input type="number" id="coaches_experience_years" placeholder="5">
+              </div>
+              <div class="form-group">
+                <label for="coaches_bio">Short Bio</label>
+                <textarea id="coaches_bio" rows="3" placeholder="A few words about the coach"></textarea>
+              </div>
+            </div>
+            <div class="booking-actions">
+              <button class="btn btn-small" id="coaches_saveButton">Add Coach</button>
+              <button class="btn btn-secondary btn-small hidden" id="coaches_cancelEditButton">Cancel Edit</button>
+            </div>
+            <p class="message" id="coaches_message"></p>
+          </div>
+          <div class="panel">
+            <div class="table-container">
+              <table class="admin-table">
+                <thead><tr><th>Name</th><th>Specialization</th><th>Experience (years)</th><th>Actions</th></tr></thead>
+                <tbody id="coachesTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="dashboard-section hidden" id="slotsSection">
+          <h2>Session Times</h2>
+          <div class="panel">
+            <h3>Add a Session Time</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="slots_coach_id">Coach</label>
+                <select id="slots_coach_id"></select>
+              </div>
+              <div class="form-group">
+                <label for="slots_slot_date">Date</label>
+                <input type="date" id="slots_slot_date">
+              </div>
+              <div class="form-group">
+                <label for="slots_slot_time">Time</label>
+                <input type="time" id="slots_slot_time">
+              </div>
+            </div>
+            <div class="booking-actions">
+              <button class="btn btn-small" id="slots_addButton">Add Session Time</button>
+            </div>
+            <p class="message" id="slots_message"></p>
+          </div>
+          <div class="panel">
+            <div class="table-container">
+              <table class="admin-table">
+                <thead><tr><th>Coach</th><th>Date</th><th>Time</th><th>Booked by</th><th>When</th><th>Actions</th></tr></thead>
+                <tbody id="slotsTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="dashboard-section hidden" id="plansSection">
+          <h2>Membership Plans</h2>
+          <div class="panel">
+            <h3 id="plans_formTitle">Add a Plan</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="plans_plan_name">Plan Name</label>
+                <input type="text" id="plans_plan_name" placeholder="For example Monthly">
+              </div>
+              <div class="form-group">
+                <label for="plans_duration_months">Duration (months)</label>
+                <input type="number" id="plans_duration_months" placeholder="1">
+              </div>
+              <div class="form-group">
+                <label for="plans_price">Price</label>
+                <input type="number" id="plans_price" placeholder="500">
+              </div>
+              <div class="form-group">
+                <label for="plans_features">Features</label>
+                <textarea id="plans_features" rows="3" placeholder="Separate the features with commas"></textarea>
+              </div>
+            </div>
+            <div class="booking-actions">
+              <button class="btn btn-small" id="plans_saveButton">Add Plan</button>
+              <button class="btn btn-secondary btn-small hidden" id="plans_cancelEditButton">Cancel Edit</button>
+            </div>
+            <p class="message" id="plans_message"></p>
+          </div>
+          <div class="panel">
+            <div class="table-container">
+              <table class="admin-table">
+                <thead><tr><th>Plan</th><th>Months</th><th>Price</th><th>Features</th><th>Actions</th></tr></thead>
+                <tbody id="plansTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="dashboard-section hidden" id="offersSection">
+          <h2>Offers and Promo Codes</h2>
+          <div class="panel">
+            <h3 id="offers_formTitle">Add an Offer</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="offers_title">Offer Title</label>
+                <input type="text" id="offers_title" placeholder="For example Summer Sale">
+              </div>
+              <div class="form-group">
+                <label for="offers_description">Description</label>
+                <textarea id="offers_description" rows="3" placeholder="What the offer is about"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="offers_discount_percent">Discount (%)</label>
+                <input type="number" id="offers_discount_percent" placeholder="10">
+              </div>
+              <div class="form-group">
+                <label for="offers_promo_code">Promo Code</label>
+                <input type="text" id="offers_promo_code" placeholder="For example SUMMER10 (must be unique)">
+              </div>
+              <div class="form-group">
+                <label for="offers_end_date">Ends On (optional)</label>
+                <input type="date" id="offers_end_date">
+              </div>
+            </div>
+            <div class="checkbox-row">
+              <input type="checkbox" id="offers_first_order_only">
+              <label for="offers_first_order_only">First order only (suggested to new members and only works if they never ordered before)</label>
+            </div>
+            <div class="booking-actions">
+              <button class="btn btn-small" id="offers_saveButton">Add Offer</button>
+              <button class="btn btn-secondary btn-small hidden" id="offers_cancelEditButton">Cancel Edit</button>
+            </div>
+            <p class="message" id="offers_message"></p>
+          </div>
+          <div class="panel">
+            <div class="table-container">
+              <table class="admin-table">
+                <thead><tr><th>Title</th><th>Discount %</th><th>Promo code</th><th>Ends</th><th>First order only</th><th>Actions</th></tr></thead>
+                <tbody id="offersTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="dashboard-section hidden" id="reviewsSection">
+          <h2>Coach Reviews</h2>
+          <div class="panel">
+            <p>Delete a review if it is rude or unfair.</p>
+            <div class="table-container">
+              <table class="admin-table">
+                <thead><tr><th>Coach</th><th>Member</th><th>Rating</th><th>Review</th><th>Date</th><th>Actions</th></tr></thead>
+                <tbody id="reviewsTableBody"></tbody>
+              </table>
+            </div>
+            <p class="message" id="reviews_message"></p>
+          </div>
+        </section>
+
+        <section class="dashboard-section hidden" id="messagesSection">
+          <h2>Messages</h2>
+          <div class="panel">
+            <p>Messages that visitors sent from the Contact page.</p>
+            <div id="messagesList"></div>
+            <p class="message" id="messages_message"></p>
+          </div>
+        </section>
+
+        <section class="dashboard-section hidden" id="paymentsSection">
+          <h2>Payments</h2>
+          <div class="panel">
+            <div class="table-container">
+              <table class="admin-table">
+                <thead><tr><th>Receipt</th><th>Member</th><th>Plan</th><th>Amount</th><th>Method</th><th>Status</th><th>Refunded</th><th>Date</th></tr></thead>
+                <tbody id="paymentsTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Connecto Gym. All rights reserved.</p>
+  </footer>
+
+  <script src="common.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
