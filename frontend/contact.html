@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connecto Gym - Contact Us</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <a href="home.html" class="logo">Connecto<span>Gym</span></a>
+    <button class="menu-toggle" id="menuToggle">&#9776;</button>
+    <nav id="mainNav">
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="plans.html">Plans</a></li>
+        <li><a href="coaches.html">Coaches</a></li>
+        <li><a href="offers.html">Offers</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+        <li id="guestButtons"><a href="login.html" class="btn-nav">Login</a></li>
+        <li class="dropdown hidden" id="userMenu">
+          <button class="dropdown-btn" id="userMenuButton">My Account</button>
+          <div class="dropdown-content">
+            <a href="dashboard.html">My Dashboard</a>
+            <a href="dashboard.html#bookings">My Bookings</a>
+            <a href="dashboard.html#profile">My Profile</a>
+            <a href="#" id="logoutLink">Log Out</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="content-section">
+      <h2>Contact Us</h2>
+      <p class="page-intro">Questions about plans, coaches or your membership? Send us a message and we will reply soon.</p>
+      <div class="contact-layout">
+        <div>
+          <div class="panel">
+            <h3>Visit us</h3>
+            <p>123 Fitness Street<br>Cairo, Egypt</p>
+          </div>
+          <div class="panel">
+            <h3>Call or email</h3>
+            <p>Phone: +20 100 000 0000<br>Email: info@connectogym.com</p>
+          </div>
+          <div class="panel">
+            <h3>Opening hours</h3>
+            <p>Saturday to Thursday: 6:00 AM - 11:00 PM<br>Friday: 2:00 PM - 11:00 PM</p>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Send us a message</h3>
+          <div class="form-group">
+            <label for="contactName">Your Name</label>
+            <input type="text" id="contactName" placeholder="Your full name">
+          </div>
+          <div class="form-group">
+            <label for="contactEmail">Your Email</label>
+            <input type="email" id="contactEmail" placeholder="you@example.com">
+          </div>
+          <div class="form-group">
+            <label for="contactSubject">Subject (optional)</label>
+            <input type="text" id="contactSubject" placeholder="What is this about?">
+          </div>
+          <div class="form-group">
+            <label for="contactMessage">Message</label>
+            <textarea id="contactMessage" rows="5" maxlength="2000" placeholder="Write your message here"></textarea>
+          </div>
+          <button class="btn" id="sendMessageButton">Send Message</button>
+          <p class="message" id="contactMessageText"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <h2>Frequently Asked Questions</h2>
+      <div class="panel faq">
+        <details>
+          <summary>How do I join?</summary>
+          <p>Create a free account, choose a plan, pick a coach (optional) and pay online. Your membership starts right away.</p>
+        </details>
+        <details>
+          <summary>Can I cancel my membership?</summary>
+          <p>Yes. Cancel any time from My Membership in your dashboard. You get a refund for the days you did not use.</p>
+        </details>
+        <details>
+          <summary>Do I have to share my weight and height?</summary>
+          <p>No. It is optional. You can skip it when you book a session and add it later from your dashboard.</p>
+        </details>
+        <details>
+          <summary>How do promo codes work?</summary>
+          <p>Type the code in the Promo Code box at checkout. New members get a first-order code that is shown on the Plans page.</p>
+        </details>
+        <details>
+          <summary>Can I book a session without a membership?</summary>
+          <p>No. You need an active membership to book sessions with our coaches.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2026 Connecto Gym. All rights reserved.</p>
+  </footer>
+
+  <script src="common.js"></script>
+  <script src="contact.js"></script>
+</body>
+</html>

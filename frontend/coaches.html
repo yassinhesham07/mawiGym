@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connecto Gym - Choose a Coach</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <a href="home.html" class="logo">Connecto<span>Gym</span></a>
+    <button class="menu-toggle" id="menuToggle">&#9776;</button>
+    <nav id="mainNav">
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="plans.html">Plans</a></li>
+        <li><a href="coaches.html" class="active">Coaches</a></li>
+        <li><a href="offers.html">Offers</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li id="guestButtons"><a href="login.html" class="btn-nav">Login</a></li>
+        <li class="dropdown hidden" id="userMenu">
+          <button class="dropdown-btn" id="userMenuButton">My Account</button>
+          <div class="dropdown-content">
+            <a href="dashboard.html">My Dashboard</a>
+            <a href="dashboard.html#bookings">My Bookings</a>
+            <a href="dashboard.html#profile">My Profile</a>
+            <a href="#" id="logoutLink">Log Out</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+  <div class="steps">
+    <div class="step done"><span class="step-number">1</span> Plan</div>
+    <div class="step-line"></div>
+    <div class="step active"><span class="step-number">2</span> Coach</div>
+    <div class="step-line"></div>
+    <div class="step " id="stepPayment"><span class="step-number">3</span> Payment</div>
+    <div class="step-line"></div>
+    <div class="step " id="stepDone"><span class="step-number">4</span> Done</div>
+  </div>
+
+    <div class="panel hidden" id="continueBar">
+      <div class="booking-row">
+        <div class="booking-info">
+          <h3 id="continuePlanText">Your plan</h3>
+          <p id="continueCoachText">No coach selected yet</p>
+        </div>
+        <a href="checkout.html" class="btn btn-small">Continue to Checkout</a>
+      </div>
+    </div>
+
+    <section class="content-section">
+      <h2>Choose a Coach</h2>
+      <p class="page-intro">Pick a coach, then choose a session time from their schedule.</p>
+      <div class="grid-container" id="coachesList"></div>
+      <p class="message" id="coachMessage"></p>
+    </section>
+
+    <section class="content-section hidden" id="scheduleSection">
+      <h2 id="scheduleTitle">Schedule</h2>
+      <p class="page-intro">Click a free time to book your session.</p>
+      <div class="slot-grid" id="slotsList"></div>
+      <p class="message" id="bookingMessage"></p>
+    </section>
+
+    <div class="panel hidden" id="fitnessPanel">
+      <h3>Tell your coach about yourself</h3>
+      <p>This part is optional. It helps your coach plan your sessions. Only the gym staff can see it, and you can change it any time from your dashboard.</p>
+      <br>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="fitnessWeight">Weight (kg)</label>
+          <input type="number" id="fitnessWeight" placeholder="For example 75">
+        </div>
+        <div class="form-group">
+          <label for="fitnessHeight">Height (cm)</label>
+          <input type="number" id="fitnessHeight" placeholder="For example 175">
+        </div>
+        <div class="form-group">
+          <label for="fitnessGoal">Your goal</label>
+          <select id="fitnessGoal"><option value="">Choose a goal (optional)</option><option value="Lose weight">Lose weight</option><option value="Build muscle">Build muscle</option><option value="Improve fitness">Improve fitness</option><option value="Increase flexibility">Increase flexibility</option><option value="Stay healthy">Stay healthy</option><option value="Prepare for a sport">Prepare for a sport</option><option value="Other">Other</option></select>
+        </div>
+        <div class="form-group">
+          <label for="fitnessExperience">Training experience</label>
+          <select id="fitnessExperience"><option value="">Choose your level (optional)</option><option value="Beginner">Beginner</option><option value="Intermediate">Intermediate</option><option value="Advanced">Advanced</option></select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fitnessNotes">Anything your coach should know? (optional)</label>
+        <textarea id="fitnessNotes" rows="3" maxlength="500" placeholder="For example an old injury or the days you prefer"></textarea>
+      </div>
+      <p class="message message-success" id="bmiText"></p>
+      <div class="booking-actions">
+        <button class="btn btn-small" id="saveFitnessButton">Save and Book</button>
+        <button class="btn btn-secondary btn-small" id="skipFitnessButton">Skip and Book</button>
+      </div>
+      <p class="message" id="fitnessMessage"></p>
+    </div>
+
+    <section class="content-section hidden" id="reviewsSection">
+      <h2 id="reviewsTitle">Reviews</h2>
+      <div class="panel">
+        <div id="ratingSummary"></div>
+        <div id="reviewsList"></div>
+        <p class="message" id="reviewHint"></p>
+      </div>
+      <div class="panel hidden" id="reviewFormPanel">
+        <h3>Your review</h3>
+        <div class="star-picker">
+          <button class="star-button" data-value="1">&#9734;</button>
+          <button class="star-button" data-value="2">&#9734;</button>
+          <button class="star-button" data-value="3">&#9734;</button>
+          <button class="star-button" data-value="4">&#9734;</button>
+          <button class="star-button" data-value="5">&#9734;</button>
+        </div>
+        <div class="form-group">
+          <label for="reviewComment">Your comment (optional)</label>
+          <textarea id="reviewComment" rows="3" maxlength="500" placeholder="What did you like about this coach?"></textarea>
+        </div>
+        <div class="booking-actions">
+          <button class="btn btn-small" id="saveReviewButton">Submit Review</button>
+          <button class="btn btn-danger btn-small hidden" id="deleteReviewButton">Delete My Review</button>
+        </div>
+        <p class="message" id="reviewMessage"></p>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2026 Connecto Gym. All rights reserved.</p>
+  </footer>
+
+  <script src="common.js"></script>
+  <script src="coaches.js"></script>
+</body>
+</html>
